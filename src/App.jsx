@@ -8,21 +8,16 @@ import RecipeDetails from "./pages/RecipeDetails";
 import Favourites from "./pages/Favourites";
 
 function App() {
-  // Main application state maintained in App.jsx using useState
   const [recipes, setRecipes] = useState(initialRecipes);
 
-  // Action function passed to pages through props to toggle favourite status
   const toggleFavourite = (id) => {
-    setRecipes((prevRecipes) =>
-      prevRecipes.map((recipe) =>
-        recipe.id === id
-          ? { ...recipe, isFavourite: !recipe.isFavourite }
-          : recipe
+    setRecipes((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, isFavourite: !item.isFavourite } : item
       )
     );
   };
 
-  // Live count of favourite recipes
   const favouriteCount = recipes.filter((r) => r.isFavourite).length;
 
   return (

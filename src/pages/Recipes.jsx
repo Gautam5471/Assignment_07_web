@@ -2,25 +2,23 @@ import React, { useState } from "react";
 import RecipeCard from "../components/RecipeCard";
 
 function Recipes({ recipes, onToggleFavourite }) {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [typeFilter, setTypeFilter] = useState("All");
-  const [sortByTime, setSortByTime] = useState("default");
+  const [search, setSearch] = useState("");
+  const [type, setType] = useState("All");
+  const [sortBy, setSortBy] = useState("default");
 
-  // Filter recipes based on type and search query using filter()
-  const filteredRecipes = recipes.filter((recipe) => {
-    const matchesType = typeFilter === "All" || recipe.type === typeFilter;
-    const matchesSearch =
-      recipe.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      recipe.cuisine.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesType && matchesSearch;
+  const filtered = recipes.filter((recipe) => {
+    const matchType = type === "All" || recipe.type === type;
+    const matchSearch =
+      recipe.name.toLowerCase().includes(search.toLowerCase()) ||
+      recipe.cuisine.toLowerCase().includes(search.toLowerCase());
+    return matchType && matchSearch;
   });
 
-  // Special rule: Sort a copy ([...list].sort()), never the state array
-  const displayedRecipes = [...filteredRecipes].sort((a, b) => {
-    if (sortByTime === "low-to-high") {
+  const sortedRecipes = [...filtered].sort((a, b) => {
+    if (sortBy === "low-to-high") {
       return a.cookingTime - b.cookingTime;
     }
-    if (sortByTime === "high-to-low") {
+    if (sortBy === "high-to-low") {
       return b.cookingTime - a.cookingTime;
     }
     return 0;
@@ -30,32 +28,26 @@ function Recipes({ recipes, onToggleFavourite }) {
     <div className="recipes-container">
       <div className="page-header">
         <h2>All Recipes</h2>
-        <p className="page-subtitle">
-          Browse, filter, and sort delicious recipes tailored to your taste.
-        </p>
+        <p className="page-subtitle">Browse, filter, and find recipes.</p>
       </div>
 
       <div className="controls-bar">
-        {/* Search Input */}
         <div className="control-group search-group">
-          <label htmlFor="search-input">Search:</label>
+          <label>Search:</label>
           <input
-            id="search-input"
             type="text"
             placeholder="Search by recipe or cuisine..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             className="input-control"
           />
         </div>
 
-        {/* Dropdown Filter: type (All, Veg, Non-Veg) */}
         <div className="control-group">
-          <label htmlFor="type-filter">Dietary Type:</label>
+          <label>Dietary Type:</label>
           <select
-            id="type-filter"
-            value={typeFilter}
-            onChange={(e) => setTypeFilter(e.target.value)}
+            value={type}
+            onChange={(e) => setType(e.target.value)}
             className="select-control"
           >
             <option value="All">All</option>
@@ -64,13 +56,11 @@ function Recipes({ recipes, onToggleFavourite }) {
           </select>
         </div>
 
-        {/* Dropdown Sort: cooking time (Low → High, High → Low) */}
         <div className="control-group">
-          <label htmlFor="time-sort">Sort by Cooking Time:</label>
+          <label>Sort by Time:</label>
           <select
-            id="time-sort"
-            value={sortByTime}
-            onChange={(e) => setSortByTime(e.target.value)}
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
             className="select-control"
           >
             <option value="default">Default</option>
@@ -80,9 +70,9 @@ function Recipes({ recipes, onToggleFavourite }) {
         </div>
       </div>
 
-      {displayedRecipes.length > 0 ? (
+      {sortedRecipes.length > 0 ? (
         <div className="recipe-grid">
-          {displayedRecipes.map((recipe) => (
+          {sortedRecipes.map((recipe) => (
             <RecipeCard
               key={recipe.id}
               recipe={recipe}
@@ -92,7 +82,7 @@ function Recipes({ recipes, onToggleFavourite }) {
         </div>
       ) : (
         <div className="empty-state">
-          <p className="empty-text">No recipes found matching your criteria.</p>
+          <p className="empty-text">No recipes found.</p>
         </div>
       )}
     </div>

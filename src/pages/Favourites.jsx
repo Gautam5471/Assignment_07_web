@@ -3,12 +3,10 @@ import { Link } from "react-router";
 import RecipeCard from "../components/RecipeCard";
 
 function Favourites({ recipes, onToggleFavourite }) {
-  // Filter favourite recipes using filter()
   const favouriteRecipes = recipes.filter((r) => r.isFavourite);
 
-  // Calculate total cooking time
   const totalCookingTime = favouriteRecipes.reduce(
-    (sum, recipe) => sum + recipe.cookingTime,
+    (total, recipe) => total + recipe.cookingTime,
     0
   );
 
@@ -46,10 +44,10 @@ function Favourites({ recipes, onToggleFavourite }) {
           <div className="empty-icon">💔</div>
           <h3 className="empty-heading">No favourites yet</h3>
           <p className="empty-text">
-            You haven't added any recipes to your favourites list.
+            You haven't added any recipes to your favourites list yet.
           </p>
           <Link to="/recipes" className="btn btn-primary">
-            Explore Recipes & Add Some!
+            Browse Recipes
           </Link>
         </div>
       )}

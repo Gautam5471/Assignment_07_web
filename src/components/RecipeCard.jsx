@@ -37,7 +37,6 @@ function RecipeCard({ recipe, onToggleFavourite }) {
         <button
           className={`btn-fav-toggle ${recipe.isFavourite ? "is-fav" : ""}`}
           onClick={() => onToggleFavourite(recipe.id)}
-          aria-label={recipe.isFavourite ? "Remove from favourites" : "Add to favourites"}
         >
           {recipe.isFavourite ? "❤ Remove from Favourites" : "♡ Add to Favourites"}
         </button>

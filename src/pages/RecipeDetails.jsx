@@ -3,8 +3,6 @@ import { useParams, Link } from "react-router";
 
 function RecipeDetails({ recipes, onToggleFavourite }) {
   const { id } = useParams();
-
-  // Find the selected recipe using find()
   const recipe = recipes.find((r) => r.id === parseInt(id, 10));
 
   if (!recipe) {
@@ -12,9 +10,9 @@ function RecipeDetails({ recipes, onToggleFavourite }) {
       <div className="details-container">
         <div className="not-found-card">
           <h2>Recipe Not Found</h2>
-          <p>The recipe you are looking for does not exist or has been removed.</p>
+          <p>The recipe you are looking for does not exist.</p>
           <Link to="/recipes" className="btn btn-primary">
-            ← Back to Recipes
+            Back to Recipes
           </Link>
         </div>
       </div>
@@ -27,7 +25,7 @@ function RecipeDetails({ recipes, onToggleFavourite }) {
   return (
     <div className="details-container">
       <Link to="/recipes" className="back-link">
-        ← Back to All Recipes
+        ← Back to Recipes
       </Link>
 
       <div className="details-card">
@@ -60,7 +58,6 @@ function RecipeDetails({ recipes, onToggleFavourite }) {
         </div>
 
         <div className="details-ingredients-section">
-          {/* Requirement: text "N ingredients" and list using map() */}
           <h2 className="ingredients-heading">
             {recipe.ingredients.length} ingredients
           </h2>
