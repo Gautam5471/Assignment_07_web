@@ -1,4 +1,3 @@
-// P3 — Recipe Book
 const recipes = [
   { id: 1, name: "Paneer Butter Masala", emoji: "🍛", cuisine: "Indian", type: "Veg", cookingTime: 40, difficulty: "Medium", ingredients: ["Paneer", "Butter", "Tomato", "Cream", "Garam Masala"], isFavourite: false },
   { id: 2, name: "Masala Maggi", emoji: "🍜", cuisine: "Indian", type: "Veg", cookingTime: 10, difficulty: "Easy", ingredients: ["Maggi", "Onion", "Tomato", "Green Chilli"], isFavourite: false },
